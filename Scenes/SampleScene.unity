@@ -168,6 +168,11 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 035eededddedc4d49ace3784055c9d1c,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d4e1ac47d28ef8a45a9be8aaff577508, type: 2}
     - target: {fileID: -4216859302048453862, guid: 035eededddedc4d49ace3784055c9d1c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -657,7 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraShoulder: {fileID: 1469694511}
   CameraHolder: {fileID: 168945823}
-  speed: 50
+  speed: 20
   rotationSpeed: 25
   minAngle: -70
   maxAngle: 90
@@ -670,7 +675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819149321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.903, z: 0}
+  m_LocalPosition: {x: 0, y: 0.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9157401255054622872}

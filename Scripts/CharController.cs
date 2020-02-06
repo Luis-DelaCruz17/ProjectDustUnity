@@ -24,6 +24,8 @@ namespace project1
         public float maxAngle = 90;
         public float cameraSpeed = 24;
 
+        private Vector2 newSpeed;
+
         void Start()
         {
             tr = this.transform;
@@ -46,6 +48,7 @@ namespace project1
 
             float deltaX = Input.GetAxis("Horizontal");
             float deltaZ = Input.GetAxis("Vertical");
+            newSpeed = new Vector2(deltaX, deltaZ);
             float deltaT = Time.deltaTime;
 
             // Costados
@@ -86,7 +89,8 @@ namespace project1
 
         private void AnimControl()
         {
-            
+            anim.SetFloat("X", newSpeed.x);
+            anim.SetFloat("Y", newSpeed.y);
         }
     }
 }
