@@ -10,6 +10,7 @@ namespace project1
         Transform tr;
         Rigidbody rg;
         Animator anim;
+        //objeto de inputController
 
         public Transform CameraShoulder;
         public Transform CameraHolder;
@@ -25,6 +26,12 @@ namespace project1
         public float cameraSpeed = 24;
 
         private Vector2 newSpeed;
+        private Vector2 mouseDelta;
+        private float deltaT;
+
+        //objeto de inputController
+        public InputController _input; /* con _ para diferenciarlo de la clase */
+
 
         void Start()
         {
@@ -38,40 +45,54 @@ namespace project1
         void FixedUpdate()
         {
             PlayerControl();
+            MoveControl();
             CameraControl();
             AnimControl();
         }
 
         private void PlayerControl()
         {
+            _input.Update();
+
+            //cambiar el Input por el _Input
+            float deltaX = _input.CheckF("Horizontal");
+            float deltaZ = _input.CheckF("Vertical");
+
+            float mouseX = _input.CheckF("Mouse X");
+            float mouseY = _input.CheckF("Mouse Y");
+
+            moveDelta = new Vector2(deltaX, deltaZ);
+            mouseDelta = new Vector2(mouseX, mouseY);
+
+            deltaT = Time.deltaTime;
+
+        }
+
+        private void MoveControl()
+        {
             Vector3 sp = rg.velocity;
-
-            float deltaX = Input.GetAxis("Horizontal");
-            float deltaZ = Input.GetAxis("Vertical");
-            newSpeed = new Vector2(deltaX, deltaZ);
-            float deltaT = Time.deltaTime;
-
+            
             // Costados
-            Vector3 side = speed * deltaX * deltaT * tr.right;
+            Vector3 side = speed * moveDelta.x *deltaT * tr.right;
             // Adelante
-            Vector3 forward = speed * deltaZ * deltaT * tr.forward;
+            Vector3 forward = speed * moveDelta.y * deltaT * tr.forward;
 
             Vector3 endSpeed = side + forward;
 
             // Asigna nueva velocidad al Rigidbody
             rg.velocity = endSpeed;
         }
+
+
+
         private void CameraControl()
         {
-            // Para que el personaje gire con la camara es necesario
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-            float deltaT = Time.deltaTime;
-
+            
+            
             // Calcular la cantidad de grados que el personaje debe girar
             // en cuestion sea derecha a izquierda o viceversa
-            rotY += mouseY * deltaT * rotationSpeed;
-            float xrot = mouseX * deltaT * rotationSpeed;
+            rotY += mouseDelta.y * deltaT * rotationSpeed;
+            float xrot = mouseDelta.x * deltaT * rotationSpeed;
             // rotar al personaje
             tr.Rotate(0, xrot, 0);
             // poner limites al girar la camara
